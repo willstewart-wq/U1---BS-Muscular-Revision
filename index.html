@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PE Muscular System Revision Workbook (LO2)</title>
+  <!-- Tailwind CSS CDN for styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      .page-break { page-break-after: always; }
+      body { background-color: #fff !important; color: #000 !important; font-size: 11pt; }
+      .card-box { border: 1px solid #ccc !important; box-shadow: none !important; margin-bottom: 1rem !important; }
+      input, select, textarea { border: 1px solid #999 !important; background: transparent !important; }
+    }
+    .correct-field { background-color: #d1fae5 !important; border-color: #059669 !important; color: #065f46 !important; }
+    .incorrect-field { background-color: #fee2e2 !important; border-color: #dc2626 !important; color: #991b1b !important; }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen pb-12">
+
+  <!-- TOP STICKY NAVBAR / TOOLBAR -->
+  <header class="no-print bg-slate-900 text-white sticky top-0 z-50 shadow-md">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center gap-4">
+      <div>
+        <h1 class="text-xl font-bold tracking-wide">PE LO2: Muscular System Revision Workbook</h1>
+        <p class="text-xs text-slate-400">Interactive Student Self-Marking Revision Resource</p>
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <button onclick="markAnswers()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-md font-semibold text-sm shadow transition flex items-center gap-1">
+          ✅ Mark My Answers
+        </button>
+        <button onclick="saveProgress()" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md text-sm transition">
+          💾 Save Progress
+        </button>
+        <button onclick="exportJSON()" class="bg-slate-700 hover:bg-slate-600 text-white px-3 py-2 rounded-md text-sm transition">
+          ⬇️ Download File
+        </button>
+        <label class="bg-slate-700 hover:bg-slate-600 text-white px-3 py-2 rounded-md text-sm transition cursor-pointer">
+          ⬆️ Upload File
+          <input type="file" id="importFileInput" onchange="importJSON(event)" class="hidden" accept=".json">
+        </label>
+        <button onclick="window.print()" class="bg-purple-600 hover:bg-purple-700 text-white px-3 py-2 rounded-md text-sm transition">
+          🖨️ Print / Save PDF
+        </button>
+        <button onclick="resetForm()" class="bg-rose-700 hover:bg-rose-800 text-white px-3 py-2 rounded-md text-sm transition">
+          🔄 Reset
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- SCORE BANNER -->
+  <div id="scoreBanner" class="hidden max-w-6xl mx-auto mt-4 px-4">
+    <div id="scoreCard" class="bg-white p-4 rounded-lg shadow-md border-l-8 border-emerald-500 flex justify-between items-center">
+      <div>
+        <h3 class="text-lg font-bold text-slate-800">Assessment Score Breakdown</h3>
+        <p id="scoreSummaryText" class="text-sm text-slate-600">Complete the questions and click "Mark My Answers".</p>
+      </div>
+      <div class="text-right">
+        <span id="scorePercentage" class="text-3xl font-extrabold text-emerald-600">0%</span>
+        <p id="scoreFraction" class="text-xs text-slate-500">(0 / 0 correct)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-6xl mx-auto px-4 mt-6 space-y-8">
+
+    <!-- STUDENT HEADER INFO -->
+    <div class="card-box bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-xs font-semibold text-slate-500 uppercase">Student Name</label>
+          <input type="text" id="student_name" oninput="autoSave()" placeholder="Enter your full name" class="w-full mt-1 px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-500 uppercase">Class / Group</label>
+          <input type="text" id="student_class" oninput="autoSave()" placeholder="e.g. 10A/PE1" class="w-full mt-1 px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-500 uppercase">Date</label>
+          <input type="date" id="student_date" oninput="autoSave()" class="w-full mt-1 px-3 py-2 border rounded-md focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+      </div>
+    </div>
+
+    <!-- SHEET 1: ANATOMY & TISSUE TYPES -->
+    <section class="card-box bg-white p-6 rounded-xl shadow-sm border border-slate-200 space-y-6">
+      <div class="border-b pb-3">
+        <span class="text-xs font-bold bg-blue-100 text-blue-800 px-2.5 py-1 rounded">SHEET 1 OF 4</span>
+        <h2 class="text-2xl font-bold text-slate-800 mt-2">1. Major Muscles & Muscle Tissue Types</h2>
+        <p class="text-sm text-slate-600">Categorise all 31 major muscles from your specification into their respective body regions, then match the muscle tissue and contraction types.</p>
+      </div>
+
+      <!-- TASK 1.1: ANATOMICAL SORTING -->
+      <div>
+        <h3 class="font-bold text-slate-700 text-lg mb-2">Task 1.1: Muscle Location Categorisation</h3>
+        <p class="text-xs text-slate-500 mb-4">Select the correct anatomical location for each muscle listed below.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3" id="muscleLocationGrid">
+          <!-- Dynamically generated muscle options -->
+        </div>
+      </div>
+
+      <!-- TASK 1.2: MUSCLE TISSUE TYPES -->
+      <div class="pt-4 border-t">
+        <h3 class="font-bold text-slate-700 text-lg mb-2">Task 1.2: Muscle Tissue Types Matching</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="border p-4 rounded-lg bg-slate-50">
+            <h4 class="font-bold text-blue-900 mb-2">Skeletal Muscle</h4>
+            <label class="block text-xs font-semibold text-slate-600 mt-2">Control Type:</label>
+            <select id="tissue_skeletal_control" class="w-full mt-1 p-2 border rounded bg-white text-sm">
+              <option value="">-- Select --</option>
+              <option value="Voluntary">Voluntary</option>
+              <option value="Involuntary">Involuntary</option>
+            </select>
+            <label class="block text-xs font-semibold text-slate-600 mt-2">Appearance:</label>
+            <select id="tissue_skeletal_appearance" class="w-full mt-1 p-2 border rounded bg-white text-sm">
+              <option value="">-- Select --</option>
+              <option value="Striated">Striated (Striped)</option>
+              <option value="Non-striated">Non-striated (Smooth)</option>
+            </select>
+            <label class="block text-xs font-semibold text-slate-600 mt-2">Location / Function:</label>
+            <input type="text" id="tissue_skeletal_location" placeholder="e.g. Attached to bones via tendons" class="w-full mt-1 p-2 border rounded bg-white text-sm">
+          </div>
+
+          <div class="border p-4 rounded-lg bg-slate-50">
+            <h4 class="font-bold text-blue-900 mb-2">Smooth Muscle</h4>
+            <label class="block text-xs font-semibold text-slate-600 mt-2">Control Type:</label>
+            <select id="tissue_smooth_control" class="w-full mt-1 p-2 border rounded bg-white text-sm">
+              <option value="">-- Select --</option>
+              <option value="Voluntary">Voluntary</option>
+              <option value="Involuntary">Involuntary</option>
+            </select>
+            <label class="block text-xs font-semibold text-slate-600 mt-2">Appearance:</label>
+            <select id="tissue_smooth_appearance" class="w-full mt-1 p-2 border rounded bg-white text-sm">
+              <option value="">-- Select --</option>
+              <option value="Striated">Striated (Striped)</option>
+              <option value="Non-striated">Non-striated (Smooth)</option>
+            </select>
+            <label class="block text-xs font-semibold text-slate-600 mt-2">Location / Function:</label>
+            <input type="text" id="tissue_smooth_location" placeholder="e.g. Walls of hollow organs, peristalsis" class="w-full mt-1 p-2 border rounded bg-white text-sm">
+          </div>
+
+          <div class="border p-4 rounded-lg bg-slate-50">
+            <h4 class="font-bold text-blue-900 mb-2">Cardiac Muscle</h4>
+            <label class="block text-xs font-semibold text-slate-600 mt-2">Control Type:</label>
+            <select id="tissue_cardiac_control" class="w-full mt-1 p-2 border rounded bg-white text-sm">
+              <option value="">-- Select --</option>
+              <option value="Voluntary">Voluntary</option>
+              <option value="Involuntary">Involuntary</option>
+            </select>
+            <label class="block text-xs font-semibold text-slate-600 mt-2">Appearance:</label>
+            <select id="tissue_cardiac_appearance" class="w-full mt-1 p-2 border rounded bg-white text-sm">
+              <option value="">-- Select --</option>
+              <option value="Striated">Striated</option>
+              <option value="Non-striated">Non-striated</option>
+            </select>
+            <label class="block text-xs font-semibold text-slate-600 mt-2">Special Property:</label>
+            <input type="text" id="tissue_cardiac_property" placeholder="e.g. Found only in heart, myogenic" class="w-full mt-1 p-2 border rounded bg-white text-sm">
+          </div>
+        </div>
+      </div>
+
+      <!-- TASK 1.3: CONTRACTION TYPES -->
+      <div class="pt-4 border-t">
+        <h3 class="font-bold text-slate-700 text-lg mb-2">Task 1.3: Muscle Contraction Types</h3>
+        <div class="space-y-3">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-2 items-center border p-3 rounded-md">
+            <span class="font-semibold text-sm">Isometric Contraction</span>
+            <input type="text" id="contract_isometric_def" placeholder="Definition (e.g. Muscle length unchanged under tension)" class="md:col-span-2 p-2 border rounded text-sm">
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-2 items-center border p-3 rounded-md">
+            <span class="font-semibold text-sm">Concentric Contraction</span>
+            <input type="text" id="contract_concentric_def" placeholder="Definition (e.g. Muscle shortens under tension)" class="md:col-span-2 p-2 border rounded text-sm">
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-2 items-center border p-3 rounded-md">
+            <span class="font-semibold text-sm">Eccentric Contraction</span>
+            <input type="text" id="contract_eccentric_def" placeholder="Definition (e.g. Muscle lengthens under tension)" class="md:col-span-2 p-2 border rounded text-sm">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHEET 2: ROLES & MOVEMENT ANALYSIS -->
+    <section class="card-box bg-white p-6 rounded-xl shadow-sm border border-slate-200 space-y-6">
+      <div class="border-b pb-3">
+        <span class="text-xs font-bold bg-blue-100 text-blue-800 px-2.5 py-1 rounded">SHEET 2 OF 4</span>
+        <h2 class="text-2xl font-bold text-slate-800 mt-2">2. Functional Muscle Roles & Movement Analysis</h2>
+      </div>
+
+      <!-- TASK 2.1: ROLES OF MUSCLES -->
+      <div>
+        <h3 class="font-bold text-slate-700 text-lg mb-2">Task 2.1: The 4 Muscle Roles</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="border p-3 rounded">
+            <label class="font-bold text-sm block">Agonist (Prime Mover):</label>
+            <input type="text" id="role_def_agonist" placeholder="Define role" class="w-full mt-1 p-2 border rounded text-sm">
+          </div>
+          <div class="border p-3 rounded">
+            <label class="font-bold text-sm block">Antagonist:</label>
+            <input type="text" id="role_def_antagonist" placeholder="Define role" class="w-full mt-1 p-2 border rounded text-sm">
+          </div>
+          <div class="border p-3 rounded">
+            <label class="font-bold text-sm block">Synergist:</label>
+            <input type="text" id="role_def_synergist" placeholder="Define role" class="w-full mt-1 p-2 border rounded text-sm">
+          </div>
+          <div class="border p-3 rounded">
+            <label class="font-bold text-sm block">Fixator:</label>
+            <input type="text" id="role_def_fixator" placeholder="Define role" class="w-full mt-1 p-2 border rounded text-sm">
+          </div>
+        </div>
+      </div>
+
+      <!-- TASK 2.2: BICEP CURL BREAKDOWN -->
+      <div class="pt-4 border-t">
+        <h3 class="font-bold text-slate-700 text-lg mb-2">Task 2.2: Applied Example - Bicep Curl Analysis</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div>
+            <label class="text-xs font-semibold block text-slate-600">Prime Mover:</label>
+            <input type="text" id="bicep_agonist" placeholder="Muscle name" class="w-full mt-1 p-2 border rounded text-sm">
+          </div>
+          <div>
+            <label class="text-xs font-semibold block text-slate-600">Antagonist:</label>
+            <input type="text" id="bicep_antagonist" placeholder="Muscle name" class="w-full mt-1 p-2 border rounded text-sm">
+          </div>
+          <div>
+            <label class="text-xs font-semibold block text-slate-600">Fixator:</label>
+            <input type="text" id="bicep_fixator" placeholder="Muscle name" class="w-full mt-1 p-2 border rounded text-sm">
+          </div>
+          <div>
+            <label class="text-xs font-semibold block text-slate-600">Synergist:</label>
+            <input type="text" id="bicep_synergist" placeholder="Muscle name" class="w-full mt-1 p-2 border rounded text-sm">
+          </div>
+        </div>
+      </div>
+
+      <!-- TASK 2.3: MOVEMENT ANALYSIS MATRIX -->
+      <div class="pt-4 border-t">
+        <h3 class="font-bold text-slate-700 text-lg mb-2">Task 2.3: Movement Analysis Matrix</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse border border-slate-300">
+            <thead class="bg-slate-100">
+              <tr>
+                <th class="border p-2">Joint Movement</th>
+                <th class="border p-2">Agonist (Prime Mover)</th>
+                <th class="border p-2">Antagonist</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="border p-2 font-medium">Extension of Knee</td>
+                <td class="border p-2"><input type="text" id="move_knee_ext_ag" class="w-full p-1 border rounded"></td>
+                <td class="border p-2"><input type="text" id="move_knee_ext_ant" class="w-full p-1 border rounded"></td>
+              </tr>
+              <tr>
+                <td class="border p-2 font-medium">Flexion of Spine / Trunk</td>
+                <td class="border p-2"><input type="text" id="move_spine_flex_ag" class="w-full p-1 border rounded"></td>
+                <td class="border p-2"><input type="text" id="move_spine_flex_ant" class="w-full p-1 border rounded"></td>
+              </tr>
+              <tr>
+                <td class="border p-2 font-medium">Plantarflexion of Ankle</td>
+                <td class="border p-2"><input type="text" id="move_ankle_plant_ag" class="w-full p-1 border rounded"></td>
+                <td class="border p-2"><input type="text" id="move_ankle_plant_ant" class="w-full p-1 border rounded"></td>
+              </tr>
+              <tr>
+                <td class="border p-2 font-medium">Dorsiflexion of Ankle</td>
+                <td class="border p-2"><input type="text" id="move_ankle_dorsi_ag" class="w-full p-1 border rounded"></td>
+                <td class="border p-2"><input type="text" id="move_ankle_dorsi_ant" class="w-full p-1 border rounded"></td>
+              </tr>
+              <tr>
+                <td class="border p-2 font-medium">Abduction of Shoulder</td>
+                <td class="border p-2"><input type="text" id="move_shoulder_abd_ag" class="w-full p-1 border rounded"></td>
+                <td class="border p-2"><input type="text" id="move_shoulder_abd_ant" class="w-full p-1 border rounded"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHEET 3: MICROSCOPIC STRUCTURE & FIBRES -->
+    <section class="card-box bg-white p-6 rounded-xl shadow-sm border border-slate-200 space-y-6">
+      <div class="border-b pb-3">
+        <span class="text-xs font-bold bg-blue-100 text-blue-800 px-2.5 py-1 rounded">SHEET 3 OF 4</span>
+        <h2 class="text-2xl font-bold text-slate-800 mt-2">3. Microscopic Structure & Fibre Types</h2>
+      </div>
+
+      <!-- TASK 3.1: MICROSCOPIC HIERARCHY -->
+      <div>
+        <h3 class="font-bold text-slate-700 text-lg mb-2">Task 3.1: Microscopic Structure Hierarchy</h3>
+        <p class="text-xs text-slate-500 mb-3">Order these structural components from outermost/largest (1) to innermost/smallest (6):</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="hierarchyGrid">
+          <!-- Dynamically populated select dropdowns -->
+        </div>
+      </div>
+
+      <!-- TASK 3.2: FIBRE TYPES COMPARISON -->
+      <div class="pt-4 border-t">
+        <h3 class="font-bold text-slate-700 text-lg mb-2">Task 3.2: Muscle Fibre Characteristics</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm border-collapse border border-slate-300">
+            <thead class="bg-slate-100">
+              <tr>
+                <th class="border p-2">Characteristic</th>
+                <th class="border p-2">Type 1 (Slow Oxidative)</th>
+                <th class="border p-2">Type 2a (Fast Oxidative)</th>
+                <th class="border p-2">Type 2b (Fast Glycolytic)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="border p-2 font-semibold">Contraction Speed</td>
+                <td class="border p-2"><input type="text" id="fibre_t1_speed" placeholder="Slow" class="w-full p-1 border rounded"></td>
+                <td class="border p-2"><input type="text" id="fibre_t2a_speed" placeholder="Fast" class="w-full p-1 border rounded"></td>
+                <td class="border p-2"><input type="text" id="fibre_t2b_speed" placeholder="Very fast" class="w-full p-1 border rounded"></td>
+              </tr>
+              <tr>
+                <td class="border p-2 font-semibold">Force Produced</td>
+                <td class="border p-2"><input type="text" id="fibre_t1_force" placeholder="Low" class="w-full p-1 border rounded"></td>
+                <td class="border p-2"><input type="text" id="fibre_t2a_force" placeholder="Medium / High" class="w-full p-1 border rounded"></td>
+                <td class="border p-2"><input type="text" id="fibre_t2b_force" placeholder="Very High" class="w-full p-1 border rounded"></td>
+              </tr>
+              <tr>
+                <td class="border p-2 font-semibold">Fatigue Resistance</td>
+                <td class="border p-2"><input type="text" id="fibre_t1_fatigue" placeholder="High" class="w-full p-1 border rounded"></td>
+                <td class="border p-2"><input type="text" id="fibre_t2a_fatigue" placeholder="Medium" class="w-full p-1 border rounded"></td>
+                <td class="border p-2"><input type="text" id="fibre_t2b_fatigue" placeholder="Low" class="w-full p-1 border rounded"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHEET 4: EFFECTS OF EXERCISE & WARM-UP/COOL-DOWN -->
+    <section class="card-box bg-white p-6 rounded-xl shadow-sm border border-slate-200 space-y-6">
+      <div class="border-b pb-3">
+        <span class="text-xs font-bold bg-blue-100 text-blue-800 px-2.5 py-1 rounded">SHEET 4 OF 4</span>
+        <h2 class="text-2xl font-bold text-slate-800 mt-2">4. Exercise Adaptations & Warm-Up / Cool-Down</h2>
+      </div>
+
+      <!-- TASK 4.1: SHORT VS LONG TERM EFFECTS -->
+      <div>
+        <h3 class="font-bold text-slate-700 text-lg mb-2">Task 4.1: Short-Term vs Long-Term Effects</h3>
+        <p class="text-xs text-slate-500 mb-3">Categorise each physiological effect as either 'Short-Term' or 'Long-Term':</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="effectsSortingGrid">
+          <!-- Dynamically populated effects -->
+        </div>
+      </div>
+
+      <!-- TASK 4.2: WARM-UP VS COOL-DOWN -->
+      <div class="pt-4 border-t">
+        <h3 class="font-bold text-slate-700 text-lg mb-2">Task 4.2: Benefits of Warm-Up vs Cool-Down</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3" id="warmupCoolingGrid">
+          <!-- Dynamically populated warm-up/cool-down choices -->
+        </div>
+      </div>
+
+      <!-- TASK 4.3: TRUE / FALSE QUICK-FIRE -->
+      <div class="pt-4 border-t">
+        <h3 class="font-bold text-slate-700 text-lg mb-2">Task 4.3: Conceptual True or False</h3>
+        <div class="space-y-3" id="trueFalseGrid">
+          <!-- Dynamically populated true/false statements -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- JAVASCRIPT FOR LOGIC, AUTO-MARKING, PHONETIC MATCHING & STORAGE -->
+  <script>
+    // --- 1. DATA STRUCTURES & ANSWER KEYS ---
+    const muscles = [
+      { id: "deltoids", name: "Deltoids", correct: "Upper Body & Arms" },
+      { id: "pectorals", name: "Pectoralis Major", correct: "Upper Body & Arms" },
+      { id: "trapezius", name: "Trapezius", correct: "Upper Body & Arms" },
+      { id: "latissimus", name: "Latissimus Dorsi", correct: "Upper Body & Arms" },
+      { id: "biceps", name: "Biceps Brachii", correct: "Upper Body & Arms" },
+      { id: "triceps", name: "Triceps Brachii", correct: "Upper Body & Arms" },
+      { id: "teres_major", name: "Teres Major", correct: "Upper Body & Arms" },
+      { id: "wrist_flexors", name: "Wrist Flexors", correct: "Upper Body & Arms" },
+      { id: "wrist_extensors", name: "Wrist Extensors", correct: "Upper Body & Arms" },
+      { id: "pronator_teres", name: "Pronator Teres", correct: "Upper Body & Arms" },
+      { id: "supinator", name: "Supinator Teres", correct: "Upper Body & Arms" },
+      
+      { id: "obliques", name: "Obliques", correct: "Trunk & Core" },
+      { id: "rectus_abdominis", name: "Rectus Abdominis", correct: "Trunk & Core" },
+      { id: "erector_spinae", name: "Erector Spinae", correct: "Trunk & Core" },
+
+      { id: "gluteus_max", name: "Gluteus Maximus", correct: "Hip & Thigh" },
+      { id: "gluteus_med", name: "Gluteus Medius", correct: "Hip & Thigh" },
+      { id: "gluteus_min", name: "Gluteus Minimus", correct: "Hip & Thigh" },
+      { id: "iliopsoas", name: "Iliopsoas", correct: "Hip & Thigh" },
+      { id: "add_brevis", name: "Adductor Brevis", correct: "Hip & Thigh" },
+      { id: "add_longus", name: "Adductor Longus", correct: "Hip & Thigh" },
+      { id: "add_magnus", name: "Adductor Magnus", correct: "Hip & Thigh" },
+      { id: "rectus_femoris", name: "Rectus Femoris", correct: "Hip & Thigh" },
+      { id: "vastus_lat", name: "Vastus Lateralis", correct: "Hip & Thigh" },
+      { id: "vastus_med", name: "Vastus Medialis", correct: "Hip & Thigh" },
+      { id: "vastus_inter", name: "Vastus Intermedius", correct: "Hip & Thigh" },
+      { id: "biceps_femoris", name: "Biceps Femoris", correct: "Hip & Thigh" },
+      { id: "semimembranosus", name: "Semimembranosus", correct: "Hip & Thigh" },
+      { id: "semitendinosus", name: "Semitendinosus", correct: "Hip & Thigh" },
+
+      { id: "gastrocnemius", name: "Gastrocnemius", correct: "Lower Leg & Ankle" },
+      { id: "soleus", name: "Soleus", correct: "Lower Leg & Ankle" },
+      { id: "tibialis_ant", name: "Tibialis Anterior", correct: "Lower Leg & Ankle" }
+    ];
+
+    const hierarchyItems = [
+      { id: "epimysium", name: "Epimysium", order: 1 },
+      { id: "perimysium", name: "Perimysium", order: 2 },
+      { id: "fascicle", name: "Muscle Fascicle / Fasciculi", order: 3 },
+      { id: "endomysium", name: "Endomysium", order: 4 },
+      { id: "fibres", name: "Muscle Fibres", order: 5 },
+      { id: "myofibrils", name: "Myofibrils", order: 6 }
+    ];
+
+    const effectsList = [
+      { id: "effect_pliability", label: "Increased muscle pliability and elasticity", correct: "Short-Term" },
+      { id: "effect_microtears", label: "Microscopic tears in muscle fibers", correct: "Short-Term" },
+      { id: "effect_hypertrophy", label: "Muscular Hypertrophy (increase in size & strength)", correct: "Long-Term" },
+      { id: "effect_temp", label: "Increase in temperature within working muscles", correct: "Short-Term" },
+      { id: "effect_myoglobin", label: "Increased myoglobin content in muscle cells", correct: "Long-Term" },
+      { id: "effect_mitochondria", label: "Increased number and size of mitochondria", correct: "Long-Term" },
+      { id: "effect_glycogen", label: "Increased glycogen storage capacity", correct: "Long-Term" },
+      { id: "effect_fatigue", label: "Depletion of energy stores leading to muscle fatigue", correct: "Short-Term" }
+    ];
+
+    const warmCoolList = [
+      { id: "wc_lactic", label: "Prevents buildup and assists dispersal of lactic acid", correct: "Cool-Down" },
+      { id: "wc_bloodpool", label: "Prevents blood pooling and maintains venous return", correct: "Cool-Down" },
+      { id: "wc_neural", label: "Primes neural pathways and improves movement efficiency", correct: "Warm-Up" },
+      { id: "wc_vasodilation", label: "Increases muscle temp & vasodilation for O2 delivery", correct: "Warm-Up" },
+      { id: "wc_doms", label: "Reduces Delayed Onset Muscle Soreness (DOMS)", correct: "Cool-Down" }
+    ];
+
+    const tfList = [
+      { id: "tf1", text: "Muscles can push bones to create movement at a joint.", correct: "False" },
+      { id: "tf2", text: "Type 2b muscle fibres have a higher force of contraction than Type 1.", correct: "True" },
+      { id: "tf3", text: "Targeted training can completely convert Type 1 slow-twitch fibres into Type 2b fast-twitch fibres.", correct: "False" },
+      { id: "tf4", text: "Smooth muscle contraction is involuntary and controlled by the autonomic nervous system.", correct: "True" }
+    ];
+
+    // --- 2. RENDER INTERACTIVE ELEMENTS ---
+    function initApp() {
+      // Render Muscle Sorting
+      const muscleGrid = document.getElementById("muscleLocationGrid");
+      muscleGrid.innerHTML = muscles.map(m => `
+        <div class="border p-2 rounded bg-slate-50 flex justify-between items-center text-sm">
+          <span class="font-medium">${m.name}</span>
+          <select id="loc_${m.id}" class="p-1 border rounded text-xs bg-white">
+            <option value="">-- Select Region --</option>
+            <option value="Upper Body & Arms">Upper Body & Arms</option>
+            <option value="Trunk & Core">Trunk & Core</option>
+            <option value="Hip & Thigh">Hip & Thigh</option>
+            <option value="Lower Leg & Ankle">Lower Leg & Ankle</option>
+          </select>
+        </div>
+      `).join('');
+
+      // Render Hierarchy
+      const hierGrid = document.getElementById("hierarchyGrid");
+      hierGrid.innerHTML = hierarchyItems.map(h => `
+        <div class="border p-2 rounded bg-slate-50 flex justify-between items-center text-sm">
+          <span>${h.name}</span>
+          <select id="hier_${h.id}" class="p-1 border rounded text-xs bg-white">
+            <option value="">-- Rank (1-6) --</option>
+            <option value="1">1 (Outermost)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6 (Innermost)</option>
+          </select>
+        </div>
+      `).join('');
+
+      // Render Effects Sorting
+      const effectsGrid = document.getElementById("effectsSortingGrid");
+      effectsGrid.innerHTML = effectsList.map(e => `
+        <div class="border p-2 rounded bg-slate-50 flex justify-between items-center text-sm">
+          <span>${e.label}</span>
+          <select id="${e.id}" class="p-1 border rounded text-xs bg-white">
+            <option value="">-- Select --</option>
+            <option value="Short-Term">Short-Term Effect</option>
+            <option value="Long-Term">Long-Term Adaptation</option>
+          </select>
+        </div>
+      `).join('');
+
+      // Render Warm-Up / Cool-Down
+      const wcGrid = document.getElementById("warmupCoolingGrid");
+      wcGrid.innerHTML = warmCoolList.map(wc => `
+        <div class="border p-2 rounded bg-slate-50 flex justify-between items-center text-sm">
+          <span>${wc.label}</span>
+          <select id="${wc.id}" class="p-1 border rounded text-xs bg-white">
+            <option value="">-- Select --</option>
+            <option value="Warm-Up">Warm-Up Benefit</option>
+            <option value="Cool-Down">Cool-Down Benefit</option>
+          </select>
+        </div>
+      `).join('');
+
+      // Render True / False
+      const tfGrid = document.getElementById("trueFalseGrid");
+      tfGrid.innerHTML = tfList.map(t => `
+        <div class="border p-3 rounded bg-slate-50 flex justify-between items-center text-sm">
+          <span class="pr-2">${t.text}</span>
+          <select id="${t.id}" class="p-1 border rounded text-xs bg-white font-bold">
+            <option value="">-- Select --</option>
+            <option value="True">True</option>
+            <option value="False">False</option>
+          </select>
+        </div>
+      `).join('');
+
+      loadLocalStorage();
+    }
+
+    // --- 3. PHONETIC & LEVENSHTEIN DISTANCE FUZZY MATCHING ---
+    function levenshteinDistance(str1, str2) {
+      const track = Array(str2.length + 1).fill(null).map(() => Array(str1.length + 1).fill(null));
+      for (let i = 0; i <= str1.length; i += 1) track[0][i] = i;
+      for (let j = 0; j <= str2.length; j += 1) track[j][0] = j;
+      for (let j = 1; j <= str2.length; j += 1) {
+        for (let i = 1; i <= str1.length; i += 1) {
+          const indicator = str1[i - 1] === str2[j - 1] ? 0 : 1;
+          track[j][i] = Math.min(
+            track[j][i - 1] + 1,
+            track[j - 1][i] + 1,
+            track[j - 1][i - 1] + indicator
+          );
+        }
+      }
+      return track[str2.length][str1.length];
+    }
+
+    function isPhoneticMatch(userInput, targetKeywords) {
+      if (!userInput || userInput.trim() === '') return false;
+      const cleanInput = userInput.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
+      if (!cleanInput) return false;
+
+      return targetKeywords.some(keyword => {
+        const cleanKey = keyword.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
+        if (cleanInput.includes(cleanKey) || cleanKey.includes(cleanInput)) return true;
+        
+        // Allow Levenshtein distance tolerance based on word length
+        const maxDist = cleanKey.length > 7 ? 2 : (cleanKey.length > 4 ? 1 : 0);
+        return levenshteinDistance(cleanInput, cleanKey) <= maxDist;
+      });
+    }
+
+    // --- 4. AUTO-MARKING ENGINE ---
+    function markAnswers() {
+      let totalPoints = 0;
+      let earnedPoints = 0;
+
+      function evaluateField(id, isCorrect) {
+        totalPoints++;
+        const el = document.getElementById(id);
+        if (!el) return;
+        if (isCorrect) {
+          earnedPoints++;
+          el.classList.remove('incorrect-field');
+          el.classList.add('correct-field');
+        } else {
+          el.classList.remove('correct-field');
+          el.classList.add('incorrect-field');
+        }
+      }
+
+      // Mark Sheet 1 Locations
+      muscles.forEach(m => {
+        const val = document.getElementById(`loc_${m.id}`)?.value;
+        evaluateField(`loc_${m.id}`, val === m.correct);
+      });
+
+      // Mark Sheet 1 Tissue Types
+      evaluateField('tissue_skeletal_control', document.getElementById('tissue_skeletal_control')?.value === 'Voluntary');
+      evaluateField('tissue_skeletal_appearance', document.getElementById('tissue_skeletal_appearance')?.value === 'Striated');
+      evaluateField('tissue_skeletal_location', isPhoneticMatch(document.getElementById('tissue_skeletal_location')?.value, ['bone', 'tendon', 'skeleton']));
+
+      evaluateField('tissue_smooth_control', document.getElementById('tissue_smooth_control')?.value === 'Involuntary');
+      evaluateField('tissue_smooth_appearance', document.getElementById('tissue_smooth_appearance')?.value === 'Non-striated');
+      evaluateField('tissue_smooth_location', isPhoneticMatch(document.getElementById('tissue_smooth_location')?.value, ['organ', 'bladder', 'stomach', 'peristalsis', 'digestive']));
+
+      evaluateField('tissue_cardiac_control', document.getElementById('tissue_cardiac_control')?.value === 'Involuntary');
+      evaluateField('tissue_cardiac_appearance', document.getElementById('tissue_cardiac_appearance')?.value === 'Striated');
+      evaluateField('tissue_cardiac_property', isPhoneticMatch(document.getElementById('tissue_cardiac_property')?.value, ['heart', 'myogenic']));
+
+      // Mark Sheet 1 Contractions
+      evaluateField('contract_isometric_def', isPhoneticMatch(document.getElementById('contract_isometric_def')?.value, ['no movement', 'same length', 'static', 'no change']));
+      evaluateField('contract_concentric_def', isPhoneticMatch(document.getElementById('contract_concentric_def')?.value, ['shorten', 'shortening', 'lifts']));
+      evaluateField('contract_eccentric_def', isPhoneticMatch(document.getElementById('contract_eccentric_def')?.value, ['lengthen', 'lengthening', 'lowering']));
+
+      // Mark Sheet 2 Roles
+      evaluateField('role_def_agonist', isPhoneticMatch(document.getElementById('role_def_agonist')?.value, ['prime mover', 'contracts', 'force', 'main muscle']));
+      evaluateField('role_def_antagonist', isPhoneticMatch(document.getElementById('role_def_antagonist')?.value, ['relaxes', 'opposite']));
+      evaluateField('role_def_synergist', isPhoneticMatch(document.getElementById('role_def_synergist')?.value, ['supports', 'assists', 'helps']));
+      evaluateField('role_def_fixator', isPhoneticMatch(document.getElementById('role_def_fixator')?.value, ['stabilises', 'stabilize', 'holds', 'origin']));
+
+      // Mark Sheet 2 Bicep Curl
+      evaluateField('bicep_agonist', isPhoneticMatch(document.getElementById('bicep_agonist')?.value, ['bicep', 'biceps', 'biceps brachii']));
+      evaluateField('bicep_antagonist', isPhoneticMatch(document.getElementById('bicep_antagonist')?.value, ['tricep', 'triceps', 'triceps brachii']));
+      evaluateField('bicep_fixator', isPhoneticMatch(document.getElementById('bicep_fixator')?.value, ['deltoid', 'shoulder']));
+      evaluateField('bicep_synergist', isPhoneticMatch(document.getElementById('bicep_synergist')?.value, ['brachialis', 'biceps brachialis']));
+
+      // Mark Movement Matrix
+      evaluateField('move_knee_ext_ag', isPhoneticMatch(document.getElementById('move_knee_ext_ag')?.value, ['quadricep', 'quadriceps', 'rectus femoris']));
+      evaluateField('move_knee_ext_ant', isPhoneticMatch(document.getElementById('move_knee_ext_ant')?.value, ['hamstring', 'hamstrings', 'biceps femoris']));
+      evaluateField('move_spine_flex_ag', isPhoneticMatch(document.getElementById('move_spine_flex_ag')?.value, ['rectus abdominis', 'abdominals', 'abs']));
+      evaluateField('move_spine_flex_ant', isPhoneticMatch(document.getElementById('move_spine_flex_ant')?.value, ['erector spinae']));
+      evaluateField('move_ankle_plant_ag', isPhoneticMatch(document.getElementById('move_ankle_plant_ag')?.value, ['gastrocnemius', 'soleus']));
+      evaluateField('move_ankle_plant_ant', isPhoneticMatch(document.getElementById('move_ankle_plant_ant')?.value, ['tibialis anterior']));
+      evaluateField('move_ankle_dorsi_ag', isPhoneticMatch(document.getElementById('move_ankle_dorsi_ag')?.value, ['tibialis anterior']));
+      evaluateField('move_ankle_dorsi_ant', isPhoneticMatch(document.getElementById('move_ankle_dorsi_ant')?.value, ['gastrocnemius', 'soleus']));
+      evaluateField('move_shoulder_abd_ag', isPhoneticMatch(document.getElementById('move_shoulder_abd_ag')?.value, ['deltoid']));
+      evaluateField('move_shoulder_abd_ant', isPhoneticMatch(document.getElementById('move_shoulder_abd_ant')?.value, ['latissimus dorsi', 'pectoralis major']));
+
+      // Mark Sheet 3 Hierarchy
+      hierarchyItems.forEach(h => {
+        const val = document.getElementById(`hier_${h.id}`)?.value;
+        evaluateField(`hier_${h.id}`, parseInt(val, 10) === h.order);
+      });
+
+      // Mark Sheet 3 Fibre Characteristics
+      evaluateField('fibre_t1_speed', isPhoneticMatch(document.getElementById('fibre_t1_speed')?.value, ['slow']));
+      evaluateField('fibre_t2a_speed', isPhoneticMatch(document.getElementById('fibre_t2a_speed')?.value, ['fast']));
+      evaluateField('fibre_t2b_speed', isPhoneticMatch(document.getElementById('fibre_t2b_speed')?.value, ['very fast', 'fastest', 'fast']));
+
+      evaluateField('fibre_t1_force', isPhoneticMatch(document.getElementById('fibre_t1_force')?.value, ['low', 'small']));
+      evaluateField('fibre_t2a_force', isPhoneticMatch(document.getElementById('fibre_t2a_force')?.value, ['medium', 'moderate', 'high']));
+      evaluateField('fibre_t2b_force', isPhoneticMatch(document.getElementById('fibre_t2b_force')?.value, ['high', 'very high', 'strong']));
+
+      evaluateField('fibre_t1_fatigue', isPhoneticMatch(document.getElementById('fibre_t1_fatigue')?.value, ['high', 'resistant']));
+      evaluateField('fibre_t2a_fatigue', isPhoneticMatch(document.getElementById('fibre_t2a_fatigue')?.value, ['medium', 'moderate']));
+      evaluateField('fibre_t2b_fatigue', isPhoneticMatch(document.getElementById('fibre_t2b_fatigue')?.value, ['low', 'quick']));
+
+      // Mark Sheet 4 Sorting
+      effectsList.forEach(e => {
+        evaluateField(e.id, document.getElementById(e.id)?.value === e.correct);
+      });
+
+      warmCoolList.forEach(wc => {
+        evaluateField(wc.id, document.getElementById(wc.id)?.value === wc.correct);
+      });
+
+      tfList.forEach(t => {
+        evaluateField(t.id, document.getElementById(t.id)?.value === t.correct);
+      });
+
+      // Show Banner Score
+      const percentage = Math.round((earnedPoints / totalPoints) * 100);
+      document.getElementById('scoreBanner').classList.remove('hidden');
+      document.getElementById('scorePercentage').textContent = `${percentage}%`;
+      document.getElementById('scoreFraction').textContent = `(${earnedPoints} / ${totalPoints} correct)`;
+      document.getElementById('scoreSummaryText').textContent = percentage >= 80 
+        ? "Excellent work! You have a strong understanding of LO2 Muscular System."
+        : "Good attempt! Review the red highlighted fields and try again.";
+      
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- 5. SAVE / LOAD / EXPORT / IMPORT LOGIC ---
+    function getFormData() {
+      const inputs = document.querySelectorAll('input, select');
+      const data = {};
+      inputs.forEach(input => {
+        if (input.id) data[input.id] = input.value;
+      });
+      return data;
+    }
+
+    function autoSave() {
+      localStorage.setItem('pe_muscular_workbook_data', JSON.stringify(getFormData()));
+    }
+
+    function saveProgress() {
+      autoSave();
+      alert('Progress saved to your browser cache!');
+    }
+
+    function loadLocalStorage() {
+      const saved = localStorage.getItem('pe_muscular_workbook_data');
+      if (!saved) return;
+      const data = JSON.parse(saved);
+      Object.keys(data).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = data[id];
+      });
+    }
+
+    function exportJSON() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(getFormData(), null, 2));
+      const downloadAnchor = document.createElement('a');
+      const name = document.getElementById('student_name')?.value || 'student';
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `PE_Muscular_System_Workbook_${name.replace(/\s+/g, '_')}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    function importJSON(event) {
+      const fileReader = new FileReader();
+      fileReader.onload = function(e) {
+        try {
+          const data = JSON.parse(e.target.result);
+          Object.keys(data).forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = data[id];
+          });
+          alert('Workbook answers loaded successfully!');
+        } catch (err) {
+          alert('Invalid JSON file format.');
+        }
+      };
+      fileReader.readAsText(event.target.files[0]);
+    }
+
+    function resetForm() {
+      if (confirm('Are you sure you want to reset all your answers?')) {
+        localStorage.removeItem('pe_muscular_workbook_data');
+        location.reload();
+      }
+    }
+
+    // Initialize on window load
+    window.onload = initApp;
+  </script>
+</body>
+</html>
